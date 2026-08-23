@@ -1,25 +1,54 @@
 # Python
 __pycache__/
 *.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environments
 .venv/
+venv/
+env/
 
-# Data
+# Python packaging
+*.egg-info/
+build/
+dist/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Raw and processed medical datasets
 data/raw/*
-data/processed/*
-
-# Keep folder structure
 !data/raw/.gitkeep
+
+data/processed/*
 !data/processed/.gitkeep
+
+# Uploaded medical images
+data/uploads/*
+!data/uploads/.gitkeep
+
+uploads/*
+!uploads/.gitkeep
+
+# Generated outputs
+outputs/*
+!outputs/.gitkeep
 
 # Model weights
 models/**/*.pt
 models/**/*.pth
-models/**/*.onnx
+models/**/*.ckpt
 
-# Outputs
-outputs/
-evaluation/results/
-
-# OS / VS Code
-.vscode/
-.DS_Store
+# Logs
+*.log
