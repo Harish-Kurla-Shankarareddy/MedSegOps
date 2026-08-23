@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "medsegops"
+version = "0.1.0"
+description = "Production-style medical image segmentation pipeline"
+requires-python = ">=3.12"
+
+[tool.setuptools.packages.find]
+include = ["app*", "evaluation*"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+markers = [
+    "model: marks tests that run real model inference"
+]
