@@ -11,6 +11,7 @@ on:
       - main
       - master
 
+
 jobs:
 
   test:
@@ -22,6 +23,38 @@ jobs:
 
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Ensure Git LFS is available
+        run: |
+          git lfs version
+          git lfs install
+
+      - name: Fetch Git LFS objects
+        run: |
+          git lfs pull
+
+      - name: Verify model artifact
+        run: |
+          test -f models/monai/model.pt
+
+          echo "Model file:"
+          ls -lh models/monai/model.pt
+
+          echo "Model file type:"
+          file models/monai/model.pt
+
+          echo "Model size:"
+          stat -c%s models/monai/model.pt
+
+          SIZE=$(stat -c%s models/monai/model.pt)
+
+          if [ "$SIZE" -lt 1000000 ]; then
+            echo "ERROR: model.pt is not the actual model binary."
+            echo "Git LFS probably did not download the model."
+            exit 1
+          fi
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -33,7 +66,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run pytest
+      - name: Run tests
         run: |
           pytest -q
 
@@ -50,6 +83,31 @@ jobs:
 
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Ensure Git LFS is available
+        run: |
+          git lfs version
+          git lfs install
+
+      - name: Fetch Git LFS objects
+        run: |
+          git lfs pull
+
+      - name: Verify model artifact
+        run: |
+          test -f models/monai/model.pt
+
+          echo "Model file:"
+          ls -lh models/monai/model.pt
+
+          SIZE=$(stat -c%s models/monai/model.pt)
+
+          if [ "$SIZE" -lt 1000000 ]; then
+            echo "ERROR: model.pt is not the actual model binary."
+            exit 1
+          fi
 
       - name: Build MedSegOps Docker image
         run: |
