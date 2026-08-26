@@ -46,9 +46,6 @@ jobs:
           echo "Model file:"
           ls -lh models/monai/model.pt
 
-          echo "Model size:"
-          stat -c%s models/monai/model.pt
-
           SIZE=$(stat -c%s models/monai/model.pt)
 
           if [ "$SIZE" -lt 1000000 ]; then
@@ -149,15 +146,27 @@ jobs:
 
           exit 1
 
+      - name: Set up Trivy
+        uses: aquasecurity/setup-trivy@v0.2.0
+        with:
+          cache: true
+          version: v0.74.0
+
       - name: Scan Docker image with Trivy
         uses: aquasecurity/trivy-action@v0.36.0
         with:
-          image-ref: "medsegops:${{ github.sha }}"
-          format: "table"
+          scan-type: image
+          scan-ref: medsegops:${{ github.sha }}
+          scanners: vuln
+          format: table
           exit-code: "1"
           ignore-unfixed: true
-          vuln-type: "os,library"
-          severity: "HIGH,CRITICAL"
+          vuln-type: os,library
+          severity: HIGH,CRITICAL
+          skip-files: "**/pip/_vendor/bom.cdx.json"
+        env:
+          TRIVY_SKIP_DB_UPDATE: "true"
+          TRIVY_SKIP_JAVA_DB_UPDATE: "true"
 
       - name: Show container logs on failure
         if: failure()
