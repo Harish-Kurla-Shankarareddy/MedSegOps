@@ -12,6 +12,10 @@ on:
       - master
 
 
+permissions:
+  contents: read
+
+
 jobs:
 
   test:
@@ -68,7 +72,7 @@ jobs:
 
 
   docker:
-    name: Build and Smoke Test Docker
+    name: Build, Smoke Test and Scan Docker
 
     runs-on: ubuntu-latest
 
@@ -140,8 +144,25 @@ jobs:
           done
 
           echo "ERROR: MedSegOps API did not become healthy."
+
           docker logs medsegops
+
           exit 1
+
+      - name: Scan Docker image with Trivy
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: "medsegops:${{ github.sha }}"
+          format: "table"
+          exit-code: "1"
+          ignore-unfixed: true
+          vuln-type: "os,library"
+          severity: "HIGH,CRITICAL"
+
+      - name: Show container logs on failure
+        if: failure()
+        run: |
+          docker logs medsegops || true
 
       - name: Stop container
         if: always()
