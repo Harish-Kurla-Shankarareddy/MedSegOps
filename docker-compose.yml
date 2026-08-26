@@ -1,0 +1,23 @@
+services:
+  medsegops:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    image: medsegops:latest
+
+    container_name: medsegops
+
+    ports:
+      - "8000:8000"
+
+    restart: unless-stopped
+
+    environment:
+      PYTHONUNBUFFERED: "1"
+
+    volumes:
+      - medsegops_outputs:/app/outputs
+
+volumes:
+  medsegops_outputs:

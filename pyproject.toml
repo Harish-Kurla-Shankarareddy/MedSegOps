@@ -15,5 +15,6 @@ include = ["app*", "evaluation*"]
 pythonpath = ["."]
 testpaths = ["tests"]
 markers = [
-    "model: marks tests that run real model inference"
+    "model: marks tests that run real model inference",
+    "integration: marks integration tests that exercise multiple MedSegOps components together",
 ]

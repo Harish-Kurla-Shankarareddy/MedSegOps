@@ -12,14 +12,16 @@
     >
 
     <title>
-        MedSegOps - AI Medical Image Segmentation
+        MedSegOps
     </title>
+
 
     <style>
 
         * {
             box-sizing: border-box;
         }
+
 
         body {
 
@@ -58,17 +60,15 @@
 
             margin: 0;
 
-            font-size: 38px;
+            font-size: 40px;
         }
 
 
         header p {
 
-            margin-top: 10px;
+            color: #5d6d7e;
 
             font-size: 18px;
-
-            color: #5d6d7e;
         }
 
 
@@ -76,7 +76,7 @@
 
             width: 90%;
 
-            max-width: 1200px;
+            max-width: 1250px;
 
             margin:
                 0
@@ -92,12 +92,12 @@
                     255,
                     255,
                     255,
-                    0.9
+                    0.96
                 );
 
             border-radius: 20px;
 
-            padding: 35px;
+            padding: 30px;
 
             margin-bottom: 30px;
 
@@ -122,6 +122,70 @@
         }
 
 
+        h3 {
+
+            font-size: 20px;
+        }
+
+
+        /* ==================================================
+           INPUT TABS
+        ================================================== */
+
+        .input-tabs {
+
+            display: flex;
+
+            gap: 10px;
+
+            margin-bottom: 25px;
+        }
+
+
+        .input-tab {
+
+            flex: 1;
+
+            background: #edf2f7;
+
+            color: #34495e;
+
+            border: 1px solid #d5dce5;
+
+            padding:
+                14px
+                18px;
+
+            border-radius: 10px;
+
+            cursor: pointer;
+
+            font-weight: bold;
+        }
+
+
+        .input-tab.active {
+
+            background: #3567b7;
+
+            color: white;
+
+            border-color: #3567b7;
+        }
+
+
+        .input-panel {
+
+            display: none;
+        }
+
+
+        .input-panel.active {
+
+            display: block;
+        }
+
+
         .upload-zone {
 
             border:
@@ -131,17 +195,17 @@
 
             border-radius: 15px;
 
-            min-height: 250px;
+            min-height: 230px;
 
             display: flex;
 
             flex-direction: column;
 
-            align-items: center;
-
             justify-content: center;
 
-            gap: 20px;
+            align-items: center;
+
+            gap: 18px;
 
             padding: 30px;
 
@@ -152,14 +216,18 @@
         input[type="file"] {
 
             font-size: 16px;
+
+            max-width: 100%;
         }
 
 
-        #file-info {
+        .folder-note {
 
-            font-size: 17px;
+            color: #5d6d7e;
 
-            color: #526170;
+            font-size: 14px;
+
+            max-width: 700px;
         }
 
 
@@ -170,10 +238,10 @@
             border-radius: 10px;
 
             padding:
-                15px
-                28px;
+                13px
+                24px;
 
-            font-size: 17px;
+            font-size: 16px;
 
             font-weight: bold;
 
@@ -203,28 +271,25 @@
 
         #status {
 
-            min-height: 25px;
+            min-height: 24px;
 
             font-weight: bold;
 
-            font-size: 16px;
+            margin-top: 20px;
         }
 
 
         .success {
-
             color: #1f7a45;
         }
 
 
         .error {
-
             color: #b33a2b;
         }
 
 
         .loading {
-
             color: #3567b7;
         }
 
@@ -235,6 +300,10 @@
         }
 
 
+        /* ==================================================
+           VIEWER
+        ================================================== */
+
         .slice-info {
 
             text-align: center;
@@ -243,17 +312,20 @@
 
             font-weight: bold;
 
-            margin-bottom: 20px;
+            margin:
+                15px
+                0;
         }
 
 
         .slider-container {
 
-            width: 75%;
+            width: 80%;
 
             margin:
-                20px
-                auto;
+                0
+                auto
+                25px;
 
             text-align: center;
         }
@@ -277,9 +349,9 @@
                     1fr
                 );
 
-            gap: 20px;
+            gap: 18px;
 
-            margin-top: 30px;
+            margin-top: 25px;
         }
 
 
@@ -287,24 +359,16 @@
 
             background: #f5f7fa;
 
+            border:
+                1px
+                solid
+                #d5dce5;
+
             border-radius: 15px;
 
             padding: 15px;
 
             text-align: center;
-
-            border:
-                1px
-                solid
-                #d5dce5;
-        }
-
-
-        .image-card h3 {
-
-            margin-top: 0;
-
-            font-size: 17px;
         }
 
 
@@ -312,7 +376,7 @@
 
             width: 100%;
 
-            max-height: 450px;
+            max-height: 420px;
 
             object-fit: contain;
 
@@ -322,9 +386,9 @@
         }
 
 
-        /* ==========================
+        /* ==================================================
            STATISTICS
-        ========================== */
+        ================================================== */
 
         .statistics-grid {
 
@@ -336,9 +400,9 @@
                     1fr
                 );
 
-            gap: 20px;
+            gap: 18px;
 
-            margin-top: 25px;
+            margin-top: 20px;
         }
 
 
@@ -356,40 +420,27 @@
                 solid
                 #d5dce5;
 
-            border-radius: 15px;
+            border-radius: 13px;
 
-            padding: 25px;
+            padding: 20px;
 
             text-align: center;
-
-            box-shadow:
-                0
-                4px
-                10px
-                rgba(
-                    0,
-                    0,
-                    0,
-                    0.04
-                );
         }
 
 
         .stat-label {
 
+            font-size: 14px;
+
             color: #5d6d7e;
 
-            font-size: 15px;
-
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
 
         .stat-value {
 
-            color: #243447;
-
-            font-size: 27px;
+            font-size: 25px;
 
             font-weight: bold;
         }
@@ -397,11 +448,25 @@
 
         .stat-unit {
 
-            font-size: 15px;
-
             color: #5d6d7e;
 
-            margin-left: 4px;
+            font-size: 14px;
+        }
+
+
+        /* ==================================================
+           DOWNLOAD
+        ================================================== */
+
+        .download-section {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 15px;
+
+            margin-top: 30px;
         }
 
 
@@ -409,11 +474,9 @@
 
             display: inline-block;
 
-            margin-top: 30px;
-
             padding:
-                15px
-                25px;
+                14px
+                24px;
 
             background: #198754;
 
@@ -424,6 +487,8 @@
             border-radius: 10px;
 
             font-weight: bold;
+
+            cursor: pointer;
         }
 
 
@@ -433,8 +498,171 @@
         }
 
 
+        .download-button.dicom {
+
+            background: #3567b7;
+        }
+
+
+        .download-button.dicom:hover {
+
+            background: #254f91;
+        }
+
+
+        #dicom-seg-download {
+
+            display: none;
+        }
+
+
+        /* ==================================================
+           XAI
+        ================================================== */
+
+        #xai-section {
+
+            display: none;
+        }
+
+
+        .xai-controls {
+
+            display: flex;
+
+            justify-content: center;
+
+            flex-wrap: wrap;
+
+            gap: 12px;
+
+            margin:
+                20px
+                0;
+        }
+
+
+        .xai-button {
+
+            min-width: 180px;
+        }
+
+
+        .xai-button.active {
+
+            background: #1f7a45;
+        }
+
+
+        .xai-status {
+
+            text-align: center;
+
+            min-height: 25px;
+
+            font-weight: bold;
+        }
+
+
+        .xai-metrics {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    3,
+                    1fr
+                );
+
+            gap: 15px;
+
+            margin:
+                20px
+                0
+                25px;
+        }
+
+
+        .metric-card {
+
+            border:
+                1px
+                solid
+                #d5dce5;
+
+            background: #f8fafc;
+
+            border-radius: 12px;
+
+            padding: 18px;
+
+            text-align: center;
+        }
+
+
+        .metric-label {
+
+            font-size: 13px;
+
+            color: #5d6d7e;
+        }
+
+
+        .metric-value {
+
+            margin-top: 7px;
+
+            font-size: 23px;
+
+            font-weight: bold;
+        }
+
+
+        .xai-image-container {
+
+            background: #111;
+
+            border-radius: 15px;
+
+            padding: 15px;
+
+            text-align: center;
+        }
+
+
+        .xai-image-container img {
+
+            width: 100%;
+
+            max-height: 650px;
+
+            object-fit: contain;
+
+            border-radius: 10px;
+        }
+
+
+        .xai-description {
+
+            background: #f5f7fa;
+
+            border:
+                1px
+                solid
+                #d5dce5;
+
+            border-radius: 12px;
+
+            padding: 18px;
+
+            margin-top: 20px;
+
+            line-height: 1.6;
+        }
+
+
         @media (
-            max-width: 900px
+            max-width: 950px
         ) {
 
             .viewer-grid {
@@ -445,6 +673,13 @@
 
 
             .statistics-grid {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .xai-metrics {
 
                 grid-template-columns:
                     1fr;
@@ -473,7 +708,8 @@
     </h1>
 
     <p>
-        AI-powered medical image segmentation
+        Explainable and production-oriented
+        medical image segmentation
     </p>
 
 </header>
@@ -482,91 +718,143 @@
 <div class="container">
 
 
-    <!-- ==========================
-         UPLOAD SECTION
-    =========================== -->
+    <!-- ==================================================
+         INPUT
+    ================================================== -->
 
     <div class="card">
 
         <h2>
-            Upload CT Scan
+            Upload Medical Image
         </h2>
 
-        <p>
-            Upload a NIfTI medical image
-            (.nii or .nii.gz)
-        </p>
 
-
-        <div class="upload-zone">
-
-
-            <input
-                type="file"
-                id="file-input"
-                accept=".nii,.nii.gz"
-            >
-
-
-            <div id="file-info">
-
-                No file selected
-
-            </div>
-
+        <div class="input-tabs">
 
             <button
-                id="segment-button"
+                type="button"
+                id="nifti-tab"
+                class="input-tab active"
             >
-
-                Run Segmentation
-
+                NIfTI
             </button>
 
 
-            <div
-                id="status"
-            ></div>
-
+            <button
+                type="button"
+                id="dicom-tab"
+                class="input-tab"
+            >
+                DICOM CT Series
+            </button>
 
         </div>
+
+
+        <!-- NIFTI -->
+
+        <div
+            id="nifti-panel"
+            class="input-panel active"
+        >
+
+            <div class="upload-zone">
+
+                <input
+                    type="file"
+                    id="nifti-input"
+                    accept=".nii,.nii.gz"
+                >
+
+
+                <div id="nifti-info">
+                    No NIfTI file selected
+                </div>
+
+
+                <button
+                    id="nifti-button"
+                    type="button"
+                >
+                    Run NIfTI Segmentation
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- DICOM -->
+
+        <div
+            id="dicom-panel"
+            class="input-panel"
+        >
+
+            <div class="upload-zone">
+
+                <input
+                    type="file"
+                    id="dicom-input"
+                    webkitdirectory
+                    directory
+                    multiple
+                >
+
+
+                <div id="dicom-info">
+                    No DICOM series selected
+                </div>
+
+
+                <div class="folder-note">
+
+                    Select a folder containing
+                    <strong>one CT DICOM series</strong>.
+
+                </div>
+
+
+                <button
+                    id="dicom-button"
+                    type="button"
+                >
+                    Run DICOM Segmentation
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div id="status"></div>
 
     </div>
 
 
-    <!-- ==========================
-         RESULT SECTION
-    =========================== -->
+    <!-- ==================================================
+         RESULTS
+    ================================================== -->
 
     <div
         class="card"
         id="result-section"
     >
 
-
         <h2>
             Segmentation Result
         </h2>
-
-
-        <p>
-            Move the slider to inspect
-            the complete CT volume.
-        </p>
 
 
         <div
             class="slice-info"
             id="slice-info"
         >
-
             CT Slice: 0 / 0
-
         </div>
 
 
         <div class="slider-container">
-
 
             <input
                 type="range"
@@ -576,24 +864,11 @@
                 value="0"
             >
 
-
-            <p>
-                Drag the slider
-                to explore the CT volume.
-            </p>
-
-
         </div>
 
 
-        <!-- ==========================
-             IMAGE VIEWERS
-        =========================== -->
-
         <div class="viewer-grid">
 
-
-            <!-- ORIGINAL CT -->
 
             <div class="image-card">
 
@@ -603,13 +878,11 @@
 
                 <img
                     id="ct-image"
-                    alt="Original CT slice"
+                    alt="Original CT"
                 >
 
             </div>
 
-
-            <!-- MASK -->
 
             <div class="image-card">
 
@@ -619,224 +892,151 @@
 
                 <img
                     id="mask-image"
-                    alt="Predicted segmentation mask"
+                    alt="Spleen segmentation"
                 >
 
             </div>
 
-
-            <!-- OVERLAY -->
 
             <div class="image-card">
 
                 <h3>
-                    CT + Segmentation Overlay
+                    CT + Segmentation
                 </h3>
 
                 <img
                     id="overlay-image"
-                    alt="CT segmentation overlay"
+                    alt="Segmentation overlay"
                 >
 
             </div>
 
-
         </div>
 
 
-        <!-- ==========================
-             SEGMENTATION STATISTICS
-        =========================== -->
+        <!-- ==================================================
+             STATISTICS
+        ================================================== -->
 
-        <div
-            class="card"
-            id="statistics-section"
-            style="
-                margin-top: 35px;
-                margin-bottom: 0;
-                background: #f8fbff;
-                box-shadow: none;
-                border: 1px solid #d5dce5;
-            "
-        >
+        <div class="card">
 
             <h2>
                 Segmentation Statistics
             </h2>
 
-            <p>
-                Quantitative measurements
-                calculated from the predicted
-                spleen segmentation.
-            </p>
-
 
             <div class="statistics-grid">
 
 
-                <!-- SPLEEN VOLUME -->
+                <div class="stat-card">
+
+                    <div class="stat-label">
+                        Input Type
+                    </div>
+
+                    <div
+                        class="stat-value"
+                        id="input-type"
+                    >
+                        --
+                    </div>
+
+                </div>
+
 
                 <div class="stat-card">
 
                     <div class="stat-label">
-
                         Spleen Volume
-
                     </div>
 
                     <div
                         class="stat-value"
                         id="volume-ml"
                     >
-
                         --
-
                     </div>
 
                     <div class="stat-unit">
-
                         mL
-
                     </div>
 
                 </div>
 
 
-                <!-- VOXEL COUNT -->
-
                 <div class="stat-card">
 
                     <div class="stat-label">
-
                         Spleen Voxels
-
                     </div>
 
                     <div
                         class="stat-value"
                         id="voxel-count"
                     >
-
                         --
-
                     </div>
 
                 </div>
 
 
-                <!-- VOLUME MM3 -->
-
                 <div class="stat-card">
 
                     <div class="stat-label">
-
                         Volume
-
                     </div>
 
                     <div
                         class="stat-value"
                         id="volume-mm3"
                     >
-
                         --
-
                     </div>
 
                     <div class="stat-unit">
-
                         mm³
-
                     </div>
 
                 </div>
 
 
-                <!-- VOXEL SPACING -->
-
                 <div class="stat-card">
 
                     <div class="stat-label">
-
                         Voxel Spacing
-
                     </div>
 
                     <div
                         class="stat-value"
                         id="voxel-spacing"
-                        style="
-                            font-size: 20px;
-                        "
+                        style="font-size:19px;"
                     >
-
                         --
-
                     </div>
 
                     <div class="stat-unit">
-
                         mm
-
                     </div>
 
                 </div>
 
 
-                <!-- IMAGE DIMENSIONS -->
-
                 <div class="stat-card">
 
                     <div class="stat-label">
-
                         Image Dimensions
-
                     </div>
 
                     <div
                         class="stat-value"
                         id="dimensions"
-                        style="
-                            font-size: 20px;
-                        "
+                        style="font-size:19px;"
                     >
-
                         --
-
                     </div>
 
                     <div class="stat-unit">
-
                         voxels
-
-                    </div>
-
-                </div>
-
-
-                <!-- VOXEL VOLUME -->
-
-                <div class="stat-card">
-
-                    <div class="stat-label">
-
-                        Single Voxel Volume
-
-                    </div>
-
-                    <div
-                        class="stat-value"
-                        id="voxel-volume"
-                    >
-
-                        --
-
-                    </div>
-
-                    <div class="stat-unit">
-
-                        mm³
-
                     </div>
 
                 </div>
@@ -844,26 +1044,180 @@
 
             </div>
 
+        </div>
+
+
+        <!-- ==================================================
+             XAI
+        ================================================== -->
+
+        <div
+            class="card"
+            id="xai-section"
+        >
+
+            <h2>
+                Explainable AI
+            </h2>
+
+
+            <p>
+                Generate model explanations using
+                3D Grad-CAM and occlusion sensitivity.
+            </p>
+
+
+            <div class="xai-controls">
+
+                <button
+                    id="generate-xai-button"
+                    class="xai-button"
+                    type="button"
+                >
+                    Generate XAI
+                </button>
+
+
+                <button
+                    id="gradcam-button"
+                    class="xai-button"
+                    type="button"
+                    style="display:none;"
+                >
+                    Grad-CAM
+                </button>
+
+
+                <button
+                    id="occlusion-button"
+                    class="xai-button"
+                    type="button"
+                    style="display:none;"
+                >
+                    Occlusion
+                </button>
+
+            </div>
+
+
+            <div
+                id="xai-status"
+                class="xai-status"
+            ></div>
+
+
+            <div
+                id="xai-metrics"
+                class="xai-metrics"
+                style="display:none;"
+            >
+
+                <div class="metric-card">
+
+                    <div class="metric-label">
+                        Explanation Precision
+                    </div>
+
+                    <div
+                        class="metric-value"
+                        id="xai-precision"
+                    >
+                        --
+                    </div>
+
+                </div>
+
+
+                <div class="metric-card">
+
+                    <div class="metric-label">
+                        Explanation Coverage
+                    </div>
+
+                    <div
+                        class="metric-value"
+                        id="xai-coverage"
+                    >
+                        --
+                    </div>
+
+                </div>
+
+
+                <div class="metric-card">
+
+                    <div class="metric-label">
+                        Explanation IoU
+                    </div>
+
+                    <div
+                        class="metric-value"
+                        id="xai-iou"
+                    >
+                        --
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="xai-viewer"
+                style="display:none;"
+            >
+
+                <div class="xai-image-container">
+
+                    <img
+                        id="xai-image"
+                        alt="XAI explanation"
+                    >
+
+                </div>
+
+
+                <div
+                    class="xai-description"
+                    id="xai-description"
+                ></div>
+
+            </div>
+
 
         </div>
 
 
-        <!-- DOWNLOAD -->
+        <!-- ==================================================
+             DOWNLOADS
+        ================================================== -->
 
-        <a
-            id="download-button"
-            class="download-button"
-            href="#"
-            download
-        >
+        <div class="download-section">
 
-            Download Segmentation Mask
 
-        </a>
+            <a
+                id="download-button"
+                class="download-button"
+                href="#"
+                download
+            >
+                Download NIfTI Mask
+            </a>
+
+
+            <a
+                id="dicom-seg-download"
+                class="download-button dicom"
+                href="#"
+                download
+            >
+                Download DICOM SEG
+            </a>
+
+        </div>
 
 
     </div>
-
 
 </div>
 
@@ -871,59 +1225,169 @@
 <script>
 
 
-    /* ==========================
-       GET HTML ELEMENTS
-    =========================== */
+    // ==================================================
+    // INPUT TABS
+    // ==================================================
 
-    const fileInput =
+    const niftiTab =
         document.getElementById(
-            "file-input"
+            "nifti-tab"
         );
 
-    const fileInfo =
+
+    const dicomTab =
         document.getElementById(
-            "file-info"
+            "dicom-tab"
         );
 
-    const segmentButton =
+
+    const niftiPanel =
         document.getElementById(
-            "segment-button"
+            "nifti-panel"
         );
+
+
+    const dicomPanel =
+        document.getElementById(
+            "dicom-panel"
+        );
+
+
+    niftiTab.addEventListener(
+        "click",
+        function () {
+
+            niftiTab.classList.add(
+                "active"
+            );
+
+            dicomTab.classList.remove(
+                "active"
+            );
+
+            niftiPanel.classList.add(
+                "active"
+            );
+
+            dicomPanel.classList.remove(
+                "active"
+            );
+
+        }
+    );
+
+
+    dicomTab.addEventListener(
+        "click",
+        function () {
+
+            dicomTab.classList.add(
+                "active"
+            );
+
+            niftiTab.classList.remove(
+                "active"
+            );
+
+            dicomPanel.classList.add(
+                "active"
+            );
+
+            niftiPanel.classList.remove(
+                "active"
+            );
+
+        }
+    );
+
+
+    // ==================================================
+    // ELEMENTS
+    // ==================================================
+
+    const niftiInput =
+        document.getElementById(
+            "nifti-input"
+        );
+
+
+    const dicomInput =
+        document.getElementById(
+            "dicom-input"
+        );
+
+
+    const niftiInfo =
+        document.getElementById(
+            "nifti-info"
+        );
+
+
+    const dicomInfo =
+        document.getElementById(
+            "dicom-info"
+        );
+
+
+    const niftiButton =
+        document.getElementById(
+            "nifti-button"
+        );
+
+
+    const dicomButton =
+        document.getElementById(
+            "dicom-button"
+        );
+
 
     const status =
         document.getElementById(
             "status"
         );
 
+
     const resultSection =
         document.getElementById(
             "result-section"
         );
+
+
+    const inputType =
+        document.getElementById(
+            "input-type"
+        );
+
 
     const sliceSlider =
         document.getElementById(
             "slice-slider"
         );
 
+
     const sliceInfo =
         document.getElementById(
             "slice-info"
         );
+
 
     const ctImage =
         document.getElementById(
             "ct-image"
         );
 
+
     const maskImage =
         document.getElementById(
             "mask-image"
         );
 
+
     const overlayImage =
         document.getElementById(
             "overlay-image"
         );
+
 
     const downloadButton =
         document.getElementById(
@@ -931,42 +1395,125 @@
         );
 
 
-    /* Statistics elements */
+    const dicomSegDownload =
+        document.getElementById(
+            "dicom-seg-download"
+        );
+
+
+    // Statistics
 
     const volumeMl =
         document.getElementById(
             "volume-ml"
         );
 
+
     const voxelCount =
         document.getElementById(
             "voxel-count"
         );
+
 
     const volumeMm3 =
         document.getElementById(
             "volume-mm3"
         );
 
+
     const voxelSpacing =
         document.getElementById(
             "voxel-spacing"
         );
+
 
     const dimensions =
         document.getElementById(
             "dimensions"
         );
 
-    const voxelVolume =
+
+    // XAI
+
+    const xaiSection =
         document.getElementById(
-            "voxel-volume"
+            "xai-section"
         );
 
 
-    /* ==========================
-       GLOBAL VARIABLES
-    =========================== */
+    const generateXaiButton =
+        document.getElementById(
+            "generate-xai-button"
+        );
+
+
+    const gradcamButton =
+        document.getElementById(
+            "gradcam-button"
+        );
+
+
+    const occlusionButton =
+        document.getElementById(
+            "occlusion-button"
+        );
+
+
+    const xaiStatus =
+        document.getElementById(
+            "xai-status"
+        );
+
+
+    const xaiMetrics =
+        document.getElementById(
+            "xai-metrics"
+        );
+
+
+    const xaiPrecision =
+        document.getElementById(
+            "xai-precision"
+        );
+
+
+    const xaiCoverage =
+        document.getElementById(
+            "xai-coverage"
+        );
+
+
+    const xaiIou =
+        document.getElementById(
+            "xai-iou"
+        );
+
+
+    const xaiViewer =
+        document.getElementById(
+            "xai-viewer"
+        );
+
+
+    const xaiImage =
+        document.getElementById(
+            "xai-image"
+        );
+
+
+    const xaiDescription =
+        document.getElementById(
+            "xai-description"
+        );
+
+
+    // ==================================================
+    // STATE
+    // ==================================================
+
+    let jobId = null;
+
+    let totalSlices = 0;
 
     let ctUrl = "";
 
@@ -974,57 +1521,417 @@
 
     let overlayUrl = "";
 
-    let totalSlices = 0;
+    let xaiData = null;
+
+    let activeXaiMethod =
+        "gradcam";
 
 
-    /* ==========================
-       FILE SELECTION
-    =========================== */
+    // ==================================================
+    // NIFTI INFO
+    // ==================================================
 
-    fileInput.addEventListener(
+    niftiInput.addEventListener(
         "change",
         function () {
 
             if (
-                fileInput.files.length > 0
+                niftiInput.files.length === 0
             ) {
 
-                const file =
-                    fileInput.files[0];
+                niftiInfo.textContent =
+                    "No NIfTI file selected";
 
-                const sizeMB =
-                    (
-                        file.size
-                        / 1024
-                        / 1024
-                    ).toFixed(2);
-
-                fileInfo.textContent =
-                    "Selected: "
-                    + file.name
-                    + " ("
-                    + sizeMB
-                    + " MB)";
-
-                status.textContent = "";
+                return;
 
             }
+
+
+            const file =
+                niftiInput.files[0];
+
+
+            const sizeMb = (
+                file.size
+                / 1024
+                / 1024
+            ).toFixed(2);
+
+
+            niftiInfo.textContent =
+                "Selected: "
+                + file.name
+                + " ("
+                + sizeMb
+                + " MB)";
 
         }
     );
 
 
-    /* ==========================
-       RUN SEGMENTATION
-    =========================== */
+    // ==================================================
+    // DICOM INFO
+    // ==================================================
 
-    segmentButton.addEventListener(
-        "click",
-        async function () {
+    dicomInput.addEventListener(
+        "change",
+        function () {
+
+            const count =
+                dicomInput.files.length;
 
 
             if (
-                fileInput.files.length === 0
+                count === 0
+            ) {
+
+                dicomInfo.textContent =
+                    "No DICOM series selected";
+
+                return;
+
+            }
+
+
+            let totalBytes = 0;
+
+
+            for (
+                const file
+                of dicomInput.files
+            ) {
+
+                totalBytes +=
+                    file.size;
+
+            }
+
+
+            const totalMb = (
+                totalBytes
+                / 1024
+                / 1024
+            ).toFixed(2);
+
+
+            dicomInfo.textContent =
+                count
+                + " DICOM files selected ("
+                + totalMb
+                + " MB)";
+
+        }
+    );
+
+
+    // ==================================================
+    // COMMON SEGMENTATION FUNCTION
+    // ==================================================
+
+    async function runSegmentation(
+        formData,
+        button,
+        originalText,
+    ) {
+
+        button.disabled =
+            true;
+
+
+        button.textContent =
+            "Processing...";
+
+
+        status.textContent =
+            "Running MedSegOps segmentation...";
+
+
+        status.className =
+            "loading";
+
+
+        resultSection.style.display =
+            "none";
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "/segment",
+                    {
+                        method: "POST",
+                        body: formData,
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            console.log(
+                "Segmentation response:",
+                data
+            );
+
+
+            if (
+                !response.ok
+            ) {
+
+                throw new Error(
+                    data.detail
+                    ||
+                    "Segmentation failed"
+                );
+
+            }
+
+
+            jobId =
+                data.job_id;
+
+
+            totalSlices =
+                data.num_slices;
+
+
+            ctUrl =
+                data.ct_url;
+
+
+            maskUrl =
+                data.mask_url;
+
+
+            overlayUrl =
+                data.overlay_url;
+
+
+            inputType.textContent =
+                data.input_type;
+
+
+            // ------------------------------------------
+            // STATISTICS
+            // ------------------------------------------
+
+            const statistics =
+                data.statistics;
+
+
+            volumeMl.textContent =
+                statistics.volume_ml;
+
+
+            voxelCount.textContent =
+                statistics.voxel_count
+                    .toLocaleString();
+
+
+            volumeMm3.textContent =
+                statistics.volume_mm3;
+
+
+            voxelSpacing.textContent =
+                statistics
+                    .voxel_spacing_mm
+                    .x
+                + " × "
+                + statistics
+                    .voxel_spacing_mm
+                    .y
+                + " × "
+                + statistics
+                    .voxel_spacing_mm
+                    .z;
+
+
+            dimensions.textContent =
+                statistics
+                    .dimensions
+                    .x
+                + " × "
+                + statistics
+                    .dimensions
+                    .y
+                + " × "
+                + statistics
+                    .dimensions
+                    .z;
+
+
+            // ------------------------------------------
+            // SLIDER
+            // ------------------------------------------
+
+            sliceSlider.min =
+                0;
+
+
+            sliceSlider.max =
+                totalSlices - 1;
+
+
+            const middleSlice =
+                Math.floor(
+                    totalSlices / 2
+                );
+
+
+            sliceSlider.value =
+                middleSlice;
+
+
+            // ------------------------------------------
+            // NIFTI DOWNLOAD
+            // ------------------------------------------
+
+            downloadButton.href =
+                data.mask_download_url;
+
+
+            // ------------------------------------------
+            // DICOM SEG
+            // ------------------------------------------
+
+            if (
+                data.input_type === "DICOM"
+                &&
+                data.dicom_seg_available
+            ) {
+
+                dicomSegDownload.href =
+                    data.dicom_seg_download_url;
+
+                dicomSegDownload.style.display =
+                    "inline-block";
+
+            }
+
+            else {
+
+                dicomSegDownload.style.display =
+                    "none";
+
+            }
+
+
+            // ------------------------------------------
+            // XAI RESET
+            // ------------------------------------------
+
+            xaiData = null;
+
+            activeXaiMethod =
+                "gradcam";
+
+
+            xaiSection.style.display =
+                "block";
+
+
+            generateXaiButton.style.display =
+                "inline-block";
+
+
+            gradcamButton.style.display =
+                "none";
+
+
+            occlusionButton.style.display =
+                "none";
+
+
+            xaiMetrics.style.display =
+                "none";
+
+
+            xaiViewer.style.display =
+                "none";
+
+
+            xaiStatus.textContent =
+                "Generate an explanation when ready.";
+
+
+            xaiStatus.className =
+                "";
+
+
+            // ------------------------------------------
+            // SHOW RESULTS
+            // ------------------------------------------
+
+            resultSection.style.display =
+                "block";
+
+
+            updateSlice(
+                middleSlice
+            );
+
+
+            status.textContent =
+                data.input_type
+                + " segmentation completed successfully.";
+
+            status.className =
+                "success";
+
+
+            resultSection.scrollIntoView(
+                {
+                    behavior: "smooth",
+                }
+            );
+
+        }
+
+        catch (
+            error
+        ) {
+
+            console.error(
+                error
+            );
+
+
+            status.textContent =
+                "Error: "
+                + error.message;
+
+
+            status.className =
+                "error";
+
+        }
+
+        finally {
+
+            button.disabled =
+                false;
+
+
+            button.textContent =
+                originalText;
+
+        }
+
+    }
+
+
+    // ==================================================
+    // NIFTI
+    // ==================================================
+
+    niftiButton.addEventListener(
+        "click",
+        async function () {
+
+            if (
+                niftiInput.files.length === 0
             ) {
 
                 status.textContent =
@@ -1038,338 +1945,102 @@
             }
 
 
-            const file =
-                fileInput.files[0];
-
-
             const formData =
                 new FormData();
 
 
             formData.append(
                 "file",
-                file
+                niftiInput.files[0]
             );
 
 
-            status.textContent =
-                "Uploading CT scan and running AI segmentation...";
-
-            status.className =
-                "loading";
-
-
-            segmentButton.disabled = true;
-
-            segmentButton.textContent =
-                "Processing...";
-
-
-            resultSection.style.display =
-                "none";
-
-
-            try {
-
-
-                const response =
-                    await fetch(
-                        "/segment",
-                        {
-                            method: "POST",
-                            body: formData
-                        }
-                    );
-
-
-                const data =
-                    await response.json();
-
-
-                console.log(
-                    "Server response:",
-                    data
-                );
-
-
-                if (
-                    !response.ok
-                ) {
-
-                    throw new Error(
-                        data.detail
-                        || data.error
-                        || "Segmentation failed"
-                    );
-
-                }
-
-
-                /* ==========================
-                   GET VISUALIZATION URLS
-                =========================== */
-
-                ctUrl =
-                    data.ct_url;
-
-                maskUrl =
-                    data.mask_url;
-
-                overlayUrl =
-                    data.overlay_url;
-
-                totalSlices =
-                    data.num_slices;
-
-                const maskDownloadUrl =
-                    data.mask_download_url;
-
-
-                if (
-                    !ctUrl
-                    || !maskUrl
-                    || !overlayUrl
-                ) {
-
-                    throw new Error(
-                        "Server did not return visualization URLs"
-                    );
-
-                }
-
-
-                if (
-                    totalSlices === undefined
-                    || totalSlices === null
-                    || totalSlices <= 0
-                ) {
-
-                    throw new Error(
-                        "Server did not return a valid num_slices value"
-                    );
-
-                }
-
-
-                /* ==========================
-                   DISPLAY STATISTICS
-                =========================== */
-
-                const statistics =
-                    data.statistics;
-
-
-                if (
-                    statistics
-                ) {
-
-                    volumeMl.textContent =
-                        statistics.volume_ml
-                        ?? "--";
-
-
-                    voxelCount.textContent =
-                        statistics.voxel_count
-                        ?? "--";
-
-
-                    volumeMm3.textContent =
-                        statistics.volume_mm3
-                        ?? "--";
-
-
-                    voxelVolume.textContent =
-                        statistics.voxel_volume_mm3
-                        ?? "--";
-
-
-                    if (
-                        statistics.voxel_spacing_mm
-                    ) {
-
-                        const spacing =
-                            statistics.voxel_spacing_mm;
-
-                        voxelSpacing.textContent =
-                            spacing.x
-                            + " × "
-                            + spacing.y
-                            + " × "
-                            + spacing.z;
-
-                    }
-
-
-                    if (
-                        statistics.dimensions
-                    ) {
-
-                        const size =
-                            statistics.dimensions;
-
-                        dimensions.textContent =
-                            size.x
-                            + " × "
-                            + size.y
-                            + " × "
-                            + size.z;
-
-                    }
-
-                }
-
-                else {
-
-                    console.warn(
-                        "No statistics returned from server"
-                    );
-
-                }
-
-
-                /* ==========================
-                   SUCCESS MESSAGE
-                =========================== */
-
-                status.textContent =
-                    "Segmentation completed successfully!";
-
-                status.className =
-                    "success";
-
-
-                /* ==========================
-                   CONFIGURE SLIDER
-                =========================== */
-
-                sliceSlider.min = 0;
-
-                sliceSlider.max =
-                    totalSlices - 1;
-
-
-                const middleSlice =
-                    Math.floor(
-                        totalSlices / 2
-                    );
-
-
-                sliceSlider.value =
-                    middleSlice;
-
-
-                /* ==========================
-                   DOWNLOAD BUTTON
-                =========================== */
-
-                if (
-                    maskDownloadUrl
-                ) {
-
-                    downloadButton.href =
-                        maskDownloadUrl;
-
-                }
-
-
-                /* ==========================
-                   SHOW RESULTS
-                =========================== */
-
-                resultSection.style.display =
-                    "block";
-
-
-                /* ==========================
-                   LOAD FIRST SLICE
-                =========================== */
-
-                updateSlice(
-                    middleSlice
-                );
-
-
-                /* ==========================
-                   SCROLL TO RESULT
-                =========================== */
-
-                resultSection.scrollIntoView(
-                    {
-                        behavior: "smooth"
-                    }
-                );
-
-
-            }
-
-
-            catch (
-                error
-            ) {
-
-
-                console.error(
-                    error
-                );
-
-
-                status.textContent =
-                    "Error: "
-                    + error.message;
-
-
-                status.className =
-                    "error";
-
-            }
-
-
-            finally {
-
-
-                segmentButton.disabled =
-                    false;
-
-
-                segmentButton.textContent =
-                    "Run Segmentation";
-
-            }
-
+            await runSegmentation(
+                formData,
+                niftiButton,
+                "Run NIfTI Segmentation",
+            );
 
         }
     );
 
 
-    /* ==========================
-       SLIDER
-    =========================== */
+    // ==================================================
+    // DICOM
+    // ==================================================
+
+    dicomButton.addEventListener(
+        "click",
+        async function () {
+
+            if (
+                dicomInput.files.length === 0
+            ) {
+
+                status.textContent =
+                    "Please select a DICOM folder first.";
+
+                status.className =
+                    "error";
+
+                return;
+
+            }
+
+
+            const formData =
+                new FormData();
+
+
+            for (
+                const file
+                of dicomInput.files
+            ) {
+
+                formData.append(
+                    "dicom_files",
+                    file,
+                    file.name
+                );
+
+            }
+
+
+            await runSegmentation(
+                formData,
+                dicomButton,
+                "Run DICOM Segmentation",
+            );
+
+        }
+    );
+
+
+    // ==================================================
+    // SLIDER
+    // ==================================================
 
     sliceSlider.addEventListener(
         "input",
         function () {
 
-            const sliceIndex =
+            updateSlice(
                 parseInt(
                     sliceSlider.value
-                );
-
-            updateSlice(
-                sliceIndex
+                )
             );
 
         }
     );
 
 
-    /* ==========================
-       UPDATE SLICE IMAGES
-    =========================== */
+    // ==================================================
+    // BASIC SLICE UPDATE
+    // ==================================================
 
     function updateSlice(
         sliceIndex
     ) {
-
 
         sliceInfo.textContent =
             "CT Slice: "
@@ -1417,8 +2088,370 @@
             + timestamp;
 
 
+        if (
+            xaiData
+        ) {
+
+            updateXaiSlice(
+                sliceIndex
+            );
+
+        }
+
     }
 
+
+    // ==================================================
+    // XAI
+    // ==================================================
+
+    generateXaiButton.addEventListener(
+        "click",
+        async function () {
+
+            if (!jobId) {
+
+                return;
+
+            }
+
+
+            generateXaiButton.disabled =
+                true;
+
+
+            generateXaiButton.textContent =
+                "Generating XAI...";
+
+
+            xaiStatus.textContent =
+                "Running 3D Grad-CAM and occlusion sensitivity. This can take several minutes.";
+
+            xaiStatus.className =
+                "loading";
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        "/xai/"
+                        + jobId,
+                        {
+                            method: "POST",
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                if (
+                    !response.ok
+                ) {
+
+                    throw new Error(
+                        data.detail
+                        ||
+                        "XAI generation failed"
+                    );
+
+                }
+
+
+                xaiData =
+                    data;
+
+
+                generateXaiButton.style.display =
+                    "none";
+
+
+                gradcamButton.style.display =
+                    "inline-block";
+
+
+                occlusionButton.style.display =
+                    "inline-block";
+
+
+                activeXaiMethod =
+                    "gradcam";
+
+
+                gradcamButton.classList.add(
+                    "active"
+                );
+
+
+                occlusionButton.classList.remove(
+                    "active"
+                );
+
+
+                xaiMetrics.style.display =
+                    "grid";
+
+
+                xaiViewer.style.display =
+                    "block";
+
+
+                updateXaiDisplay();
+
+
+                xaiStatus.textContent =
+                    "XAI explanations generated successfully.";
+
+                xaiStatus.className =
+                    "success";
+
+            }
+
+            catch (
+                error
+            ) {
+
+                console.error(
+                    error
+                );
+
+
+                xaiStatus.textContent =
+                    "XAI error: "
+                    + error.message;
+
+
+                xaiStatus.className =
+                    "error";
+
+            }
+
+            finally {
+
+                generateXaiButton.disabled =
+                    false;
+
+
+                generateXaiButton.textContent =
+                    "Generate XAI";
+
+            }
+
+        }
+    );
+
+
+    // ==================================================
+    // GRAD-CAM
+    // ==================================================
+
+    gradcamButton.addEventListener(
+        "click",
+        function () {
+
+            activeXaiMethod =
+                "gradcam";
+
+
+            gradcamButton.classList.add(
+                "active"
+            );
+
+
+            occlusionButton.classList.remove(
+                "active"
+            );
+
+
+            updateXaiDisplay();
+
+        }
+    );
+
+
+    // ==================================================
+    // OCCLUSION
+    // ==================================================
+
+    occlusionButton.addEventListener(
+        "click",
+        function () {
+
+            activeXaiMethod =
+                "occlusion";
+
+
+            occlusionButton.classList.add(
+                "active"
+            );
+
+
+            gradcamButton.classList.remove(
+                "active"
+            );
+
+
+            updateXaiDisplay();
+
+        }
+    );
+
+
+    // ==================================================
+    // XAI DISPLAY
+    // ==================================================
+
+    function updateXaiDisplay() {
+
+        if (!xaiData) {
+
+            return;
+
+        }
+
+
+        let methodData;
+
+
+        if (
+            activeXaiMethod
+            === "gradcam"
+        ) {
+
+            methodData =
+                xaiData.gradcam;
+
+        }
+
+        else {
+
+            methodData =
+                xaiData.occlusion;
+
+        }
+
+
+        xaiPrecision.textContent =
+            (
+                methodData.precision
+                * 100
+            ).toFixed(2)
+            + "%";
+
+
+        xaiCoverage.textContent =
+            (
+                methodData.coverage
+                * 100
+            ).toFixed(2)
+            + "%";
+
+
+        xaiIou.textContent =
+            (
+                methodData.iou
+                * 100
+            ).toFixed(2)
+            + "%";
+
+
+        if (
+            activeXaiMethod
+            === "gradcam"
+        ) {
+
+            xaiDescription.textContent =
+                "3D Grad-CAM using the late decoder layer "
+                + methodData.target_layer
+                + ". The explanation uses the "
+                + methodData.threshold_percentile
+                + "th activation percentile. "
+                + "Higher activation indicates stronger contribution "
+                + "to the spleen prediction.";
+
+        }
+
+        else {
+
+            xaiDescription.textContent =
+                "3D occlusion sensitivity using "
+                + methodData.block_size.join(
+                    " × "
+                )
+                + " voxel blocks. Regions that cause a larger drop "
+                + "in spleen confidence are considered more important.";
+
+        }
+
+
+        updateXaiSlice(
+            parseInt(
+                sliceSlider.value
+            )
+        );
+
+    }
+
+
+    // ==================================================
+    // XAI SLICE
+    // ==================================================
+
+    function updateXaiSlice(
+        sliceIndex
+    ) {
+
+        if (!xaiData) {
+
+            return;
+
+        }
+
+
+        let methodData;
+
+
+        if (
+            activeXaiMethod
+            === "gradcam"
+        ) {
+
+            methodData =
+                xaiData.gradcam;
+
+        }
+
+        else {
+
+            methodData =
+                xaiData.occlusion;
+
+        }
+
+
+        const sliceNumber =
+            sliceIndex
+                .toString()
+                .padStart(
+                    3,
+                    "0"
+                );
+
+
+        const timestamp =
+            Date.now();
+
+
+        xaiImage.src =
+            methodData.slice_url
+            + "/slice_"
+            + sliceNumber
+            + ".png?t="
+            + timestamp;
+
+    }
 
 </script>
 
