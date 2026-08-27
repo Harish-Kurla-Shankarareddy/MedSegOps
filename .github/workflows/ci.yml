@@ -18,6 +18,10 @@ permissions:
 
 jobs:
 
+  # ==========================================================
+  # 1. SOFTWARE TESTS
+  # ==========================================================
+
   test:
     name: Run Tests
 
@@ -25,19 +29,34 @@ jobs:
 
     steps:
 
+      # --------------------------------------------------------
+      # Checkout repository
+      # --------------------------------------------------------
+
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           lfs: true
+
+
+      # --------------------------------------------------------
+      # Git LFS
+      # --------------------------------------------------------
 
       - name: Ensure Git LFS is available
         run: |
           git lfs version
           git lfs install
 
+
       - name: Fetch Git LFS objects
         run: |
           git lfs pull
+
+
+      # --------------------------------------------------------
+      # Verify model
+      # --------------------------------------------------------
 
       - name: Verify model artifact
         run: |
@@ -48,28 +67,50 @@ jobs:
 
           SIZE=$(stat -c%s models/monai/model.pt)
 
+          echo "Model size: ${SIZE} bytes"
+
           if [ "$SIZE" -lt 1000000 ]; then
             echo "ERROR: model.pt is not the actual model binary."
             exit 1
           fi
+
+
+      # --------------------------------------------------------
+      # Python
+      # --------------------------------------------------------
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
+
+      # --------------------------------------------------------
+      # Dependencies
+      # --------------------------------------------------------
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+
+
+      # --------------------------------------------------------
+      # Tests
+      # --------------------------------------------------------
 
       - name: Run tests
         run: |
           pytest -q
 
 
-  docker:
-    name: Build, Smoke Test and Scan Docker
+
+  # ==========================================================
+  # 2. MODEL QUALITY GATE
+  # ==========================================================
+
+  model-quality:
+    name: Model Quality Gate
 
     runs-on: ubuntu-latest
 
@@ -78,19 +119,34 @@ jobs:
 
     steps:
 
+      # --------------------------------------------------------
+      # Checkout repository
+      # --------------------------------------------------------
+
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           lfs: true
+
+
+      # --------------------------------------------------------
+      # Git LFS
+      # --------------------------------------------------------
 
       - name: Ensure Git LFS is available
         run: |
           git lfs version
           git lfs install
 
+
       - name: Fetch Git LFS objects
         run: |
           git lfs pull
+
+
+      # --------------------------------------------------------
+      # Verify model
+      # --------------------------------------------------------
 
       - name: Verify model artifact
         run: |
@@ -101,16 +157,141 @@ jobs:
 
           SIZE=$(stat -c%s models/monai/model.pt)
 
+          echo "Model size: ${SIZE} bytes"
+
           if [ "$SIZE" -lt 1000000 ]; then
             echo "ERROR: model.pt is not the actual model binary."
             exit 1
           fi
+
+
+      # --------------------------------------------------------
+      # Python
+      # --------------------------------------------------------
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+
+      # --------------------------------------------------------
+      # Cache the Task09 Spleen archive
+      # --------------------------------------------------------
+
+      - name: Cache Task09 Spleen archive
+        uses: actions/cache@v4
+        with:
+          path: .ci_data/Task09_Spleen.tar
+          key: task09-spleen-${{ runner.os }}-v1
+          restore-keys: |
+            task09-spleen-${{ runner.os }}-
+
+
+      # --------------------------------------------------------
+      # Dependencies
+      # --------------------------------------------------------
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+
+      # --------------------------------------------------------
+      # Download / prepare validation dataset
+      # --------------------------------------------------------
+
+      - name: Prepare model validation data
+        run: |
+          python scripts/download_ci_validation_data.py
+
+
+      # --------------------------------------------------------
+      # Run model quality gate
+      # --------------------------------------------------------
+
+      - name: Run model quality gate
+        run: |
+          python scripts/check_model_quality.py
+
+
+
+  # ==========================================================
+  # 3. DOCKER BUILD + SMOKE TEST + SECURITY
+  # ==========================================================
+
+  docker:
+    name: Build, Smoke Test and Scan Docker
+
+    runs-on: ubuntu-latest
+
+    needs:
+      - test
+      - model-quality
+
+    steps:
+
+      # --------------------------------------------------------
+      # Checkout repository
+      # --------------------------------------------------------
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+
+      # --------------------------------------------------------
+      # Git LFS
+      # --------------------------------------------------------
+
+      - name: Ensure Git LFS is available
+        run: |
+          git lfs version
+          git lfs install
+
+
+      - name: Fetch Git LFS objects
+        run: |
+          git lfs pull
+
+
+      # --------------------------------------------------------
+      # Verify model
+      # --------------------------------------------------------
+
+      - name: Verify model artifact
+        run: |
+          test -f models/monai/model.pt
+
+          echo "Model file:"
+          ls -lh models/monai/model.pt
+
+          SIZE=$(stat -c%s models/monai/model.pt)
+
+          echo "Model size: ${SIZE} bytes"
+
+          if [ "$SIZE" -lt 1000000 ]; then
+            echo "ERROR: model.pt is not the actual model binary."
+            exit 1
+          fi
+
+
+      # --------------------------------------------------------
+      # Build Docker image
+      # --------------------------------------------------------
 
       - name: Build MedSegOps Docker image
         run: |
           docker build \
             -t medsegops:${{ github.sha }} \
             .
+
+
+      # --------------------------------------------------------
+      # Start container
+      # --------------------------------------------------------
 
       - name: Start MedSegOps container
         run: |
@@ -119,6 +300,11 @@ jobs:
             --name medsegops \
             -p 8000:8000 \
             medsegops:${{ github.sha }}
+
+
+      # --------------------------------------------------------
+      # Wait for API
+      # --------------------------------------------------------
 
       - name: Wait for API
         run: |
@@ -131,11 +317,13 @@ jobs:
 
               echo
               echo "MedSegOps API is healthy."
+
               exit 0
 
             fi
 
             echo "Waiting for MedSegOps API..."
+
             sleep 5
 
           done
@@ -145,6 +333,11 @@ jobs:
           docker logs medsegops
 
           exit 1
+
+
+      # --------------------------------------------------------
+      # Trivy security scan
+      # --------------------------------------------------------
 
       - name: Scan Docker image with Trivy
         uses: aquasecurity/trivy-action@v0.36.0
@@ -159,10 +352,20 @@ jobs:
           severity: HIGH,CRITICAL
           skip-files: "**/pip/_vendor/bom.cdx.json"
 
+
+      # --------------------------------------------------------
+      # Show logs if something fails
+      # --------------------------------------------------------
+
       - name: Show container logs on failure
         if: failure()
         run: |
           docker logs medsegops || true
+
+
+      # --------------------------------------------------------
+      # Cleanup
+      # --------------------------------------------------------
 
       - name: Stop container
         if: always()

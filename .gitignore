@@ -100,6 +100,8 @@ models/**/*.ckpt
 !models/monai/
 !models/monai/model.pt
 
+# CI validation medical data
+.ci_data/
 
 # ============================================================
 # Logs
