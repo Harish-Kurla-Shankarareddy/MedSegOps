@@ -190,4 +190,28 @@ Voxel Spacing:     0.9766 × 0.9766 × 5.0 mm
 Image Dimensions:  512 × 512 × 55
 
 
+---
+
+## DICOM / DICOM SEG
+
+MedSegOps supports DICOM CT input and can export the predicted spleen segmentation as a binary DICOM Segmentation Object (DICOM SEG).
+
+### DICOM Workflow
+
+```text
+DICOM CT Series
+      ↓
+Series Reconstruction
+      ↓
+3D Medical Volume
+      ↓
+MONAI Preprocessing
+      ↓
+3D Spleen Segmentation
+      ↓
+Binary Segmentation Mask
+      ↓
+DICOM SEG Export
+
+
 
