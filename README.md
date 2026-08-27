@@ -118,40 +118,7 @@ GitHub Actions automatically tests, validates, builds, scans, and delivers the a
         Docker / Trivy
 
 
-Overview
-↓
-Visual Demo
-↓
-Key Features
-↓
-Architecture
-↓
-Medical AI Pipeline   ← NEXT
-↓
-Supported Medical Images
-↓
-Segmentation Output
-↓
-DICOM / DICOM SEG
-↓
-Explainable AI
-↓
-Model Quality
-↓
-Web Application
-↓
-Docker
-↓
-Security
-↓
-CI/CD
-...
 
-
-add:
-
-```markdown
----
 
 ## Medical AI Pipeline
 
@@ -181,3 +148,17 @@ The inference pipeline performs:
 The model uses sliding-window inference to process 3D CT volumes while preserving the spatial context required for volumetric segmentation.
 
 ---
+
+---
+
+## Supported Medical Images
+
+MedSegOps supports two primary medical imaging workflows.
+
+### NIfTI
+
+NIfTI volumes can be provided in the following formats:
+
+```text
+.nii
+.nii.gz
