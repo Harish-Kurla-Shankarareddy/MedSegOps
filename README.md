@@ -214,4 +214,32 @@ Binary Segmentation Mask
 DICOM SEG Export
 
 
+---
+
+## Explainable AI
+
+MedSegOps provides two complementary methods for interpreting the 3D spleen segmentation model:
+
+- 3D Grad-CAM
+- Occlusion Sensitivity
+
+### 3D Grad-CAM
+
+Grad-CAM is used to highlight regions of the 3D CT volume that contribute to the segmentation prediction.
+
+MedSegOps also evaluates the spatial alignment between the explanation and the target segmentation using:
+
+| Metric | Result |
+|---|---:|
+| Precision | **94.74%** |
+| Coverage | **88.60%** |
+| Explanation IoU | **84.45%** |
+
+The best observed explanation threshold was:
+
+```text
+Threshold: 80%
+
+
+
 
