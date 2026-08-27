@@ -162,3 +162,32 @@ NIfTI volumes can be provided in the following formats:
 ```text
 .nii
 .nii.gz
+
+---
+
+## Segmentation Output & Statistics
+
+The segmentation pipeline produces a binary spleen mask from the input CT volume.
+
+In addition to the segmentation mask, MedSegOps calculates quantitative information about the result.
+
+### Reported Statistics
+
+| Statistic | Description |
+|---|---|
+| Spleen voxel count | Number of voxels belonging to the predicted spleen |
+| Spleen volume | Physical spleen volume calculated from voxel spacing |
+| Image dimensions | Size of the input 3D volume |
+| Voxel spacing | Physical spacing of voxels in millimeters |
+
+### Example
+
+```text
+Input Type:        DICOM
+Spleen Volume:     247.05 mL
+Spleen Voxels:     51,811
+Voxel Spacing:     0.9766 × 0.9766 × 5.0 mm
+Image Dimensions:  512 × 512 × 55
+
+
+
