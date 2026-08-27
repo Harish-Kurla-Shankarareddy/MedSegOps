@@ -19,6 +19,34 @@ The system supports NIfTI and DICOM CT input, segmentation statistics, DICOM SEG
 
 ---
 
+## Visual Demo
+
+### 3D Spleen Segmentation
+
+The application displays the original CT volume, predicted spleen mask, and segmentation overlay together with quantitative segmentation statistics.
+
+![MedSegOps Segmentation Result](docs/segmentation-result.png)
+
+### Explainable AI — 3D Grad-CAM
+
+3D Grad-CAM highlights regions contributing to the spleen segmentation prediction.
+
+![MedSegOps Grad-CAM](docs/xai-gradcam.png)
+
+### Explainable AI — Occlusion Sensitivity
+
+3D occlusion sensitivity provides a complementary model explanation by measuring the effect of masking local regions of the input volume.
+
+![MedSegOps Occlusion Sensitivity](docs/xai-occlusion.png)
+
+### CI/CD Pipeline
+
+GitHub Actions automatically tests, validates, builds, scans, and delivers the application.
+
+![MedSegOps GitHub Actions](docs/github-actions.png)
+
+---
+
 ## Key Features
 
 - 3D spleen segmentation with a MONAI UNet
@@ -88,3 +116,68 @@ The system supports NIfTI and DICOM CT input, segmentation statistics, DICOM SEG
                 │                   │
         Tests / Quality /       GHCR publish
         Docker / Trivy
+
+
+Overview
+↓
+Visual Demo
+↓
+Key Features
+↓
+Architecture
+↓
+Medical AI Pipeline   ← NEXT
+↓
+Supported Medical Images
+↓
+Segmentation Output
+↓
+DICOM / DICOM SEG
+↓
+Explainable AI
+↓
+Model Quality
+↓
+Web Application
+↓
+Docker
+↓
+Security
+↓
+CI/CD
+...
+
+
+add:
+
+```markdown
+---
+
+## Medical AI Pipeline
+
+MedSegOps uses a 3D MONAI UNet for spleen segmentation from CT volumes.
+
+The inference pipeline performs:
+
+1. Medical image loading
+2. Orientation and spacing normalization
+3. Intensity normalization
+4. 3D sliding-window inference
+5. Post-processing and inverse transformation
+6. Binary spleen-mask generation
+
+### Inference Configuration
+
+| Parameter | Value |
+|---|---|
+| Spatial dimensions | 3D |
+| Input channels | 1 |
+| Output classes | 2 |
+| Input spacing | 1.5 × 1.5 × 2.0 mm |
+| Sliding-window ROI | 96 × 96 × 96 |
+| Sliding-window batch size | 4 |
+| Sliding-window overlap | 0.5 |
+
+The model uses sliding-window inference to process 3D CT volumes while preserving the spatial context required for volumetric segmentation.
+
+---
