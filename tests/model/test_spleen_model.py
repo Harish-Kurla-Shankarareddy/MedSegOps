@@ -13,9 +13,15 @@ MODEL_PATH = Path("models/monai/model.pt")
     not MODEL_PATH.exists(),
     reason="Pretrained model not available in this environment",
 )
-def test_spleen_segmentation_quality():
-    """Verify that the pretrained model achieves acceptable Dice."""
+def test_spleen_model_loads():
+    """
+    Verify that the pretrained segmentation model can be
+    loaded successfully.
+    """
 
-    segmenter = SpleenSegmenter()
+    segmenter = SpleenSegmenter(
+        model_path=MODEL_PATH,
+        device="cpu",
+    )
 
-    assert segmenter is not None
+    assert segmenter.model is not None
